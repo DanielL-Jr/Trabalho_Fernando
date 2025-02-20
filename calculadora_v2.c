@@ -21,24 +21,28 @@ int main() {
         switch(option) {
             case 1: {
                 char binStr[100];
-                printf("Digite um numero binario: ");
-                scanf("%s", binStr);
-                int valid = 1;
-                int has_point = 0;
-                int i = 0;
-                if (binStr[0] == '-') i = 1;
-                for (; binStr[i] != '\0'; i++) {
-                    if (binStr[i] == '.') {
-                        if (has_point) { valid = 0; break; }
-                        has_point = 1;
-                    } else if (binStr[i] != '0' && binStr[i] != '1') {
-                        valid = 0; break;
+                int valid;
+                do{
+                    valid = 1;
+                    printf("Digite um numero binario: ");
+                    scanf("%s", binStr);
+                    int has_point = 0;
+                    int i = 0;
+                    if (binStr[0] == '-') i = 1;
+                    for (; binStr[i] != '\0'; i++) {
+                        if (binStr[i] == '.') {
+                            if (has_point) { valid = 0; break; }
+                            has_point = 1;
+                        } else if (binStr[i] != '0' && binStr[i] != '1') {
+                            valid = 0; break;
+                        }
                     }
-                }
-                if (!valid) {
-                    printf("Numero binario INVALIDO.\n");
-                    break;
-                }
+                    
+                    if (!valid) {
+                        printf("Numero binario INVALIDO.\n");
+                    }
+                }while(!valid);
+                
                 double dec = bin_to_dec(binStr);
                 printf("Valor decimal: %f\n", dec);
                 limpar_console();
