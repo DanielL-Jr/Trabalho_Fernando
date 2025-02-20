@@ -109,17 +109,21 @@ double bin_to_dec(const char *binStr) {
     return is_negative ? -total : total;
 }
 
+// Converte decimal para binário
 char* dec_to_bin(double num) {
     if (num == 0.0) {
         char *result = malloc(2);
         strcpy(result, "0");
         return result;
     }
+
+    // "Guarda" o sinal em uma variável e o módulo em outra
     int is_negative = 0;
     if (num < 0) {
         is_negative = 1;
-        num = -num;
+        num = -num; 
     }
+
     int int_part = (int)num;
     double frac_part = num - int_part;
     char int_bin[32] = {0};
@@ -128,16 +132,21 @@ char* dec_to_bin(double num) {
         int_bin[i++] = '0';
     } else {
         while (int_part > 0) {
+            // Faz as divisões guardando o resto
             int_bin[i++] = (int_part % 2) + '0';
             int_part /= 2;
         }
     }
+
+    // Inverte a parte inteira 
+    // Nesse momento i guarda o comprimento do binário
     for (int j = 0; j < i/2; j++) {
         char temp = int_bin[j];
         int_bin[j] = int_bin[i - j - 1];
         int_bin[i - j - 1] = temp;
     }
-    int_bin[i] = '\0';
+    int_bin[i] = '\0'; // Encerra a string da parte inteira
+
     char frac_bin[9] = {0};
     int f = 0;
     while (frac_part > 0 && f < 8) {
