@@ -37,6 +37,7 @@ int main() {
                 }
                 if (!valid) {
                     printf("Numero binario INVALIDO.\n");
+                    limpar_console();
                     break;
                 }
                 double dec = bin_to_dec(binStr);
