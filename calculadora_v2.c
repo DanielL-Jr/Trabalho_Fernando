@@ -77,45 +77,38 @@ int main() {
     return 0;
 }
 
+// Converte binário para decimal
 double bin_to_dec(const char *binStr) {
-    int is_negative = 0;
     int i = 0;
+
+    // Verifica se é negativo
+    int is_negative = 0;
     if (binStr[0] == '-') {
         is_negative = 1;
+        i++; // Caso verdadeiro pula para o próximo caracter
+    }
+
+    // Calcula parte inteira
+    // Varre o número da esquerda pra direita, dobrando o número total temporario e somando o próximo bit
+    double int_value = 0.0;
+    while (binStr[i] != '\0' && binStr[i] != '.') {
+        int_value = int_value * 2 + (binStr[i] - '0');
         i++;
     }
-    
-    int point_index = -1;
-    int j;
-    for (j = i; binStr[j] != '\0'; j++) {
-        if (binStr[j] == '.') {
-            point_index = j;
-            break;
-        }
-    }
 
-    double int_value = 0.0;
-    double power = 1.0;
-    int start_index = (point_index == -1) ? strlen(binStr) - 1 : point_index - 1;
-
-    for (j = start_index; j >= i; j--) {
-        if (binStr[j] == '1') {
-            int_value += power;
-        }
-        power *= 2;
-    }
-
+    // Calcula parte fracionaria
     double frac_value = 0.0;
     double factor = 0.5;
-    if (point_index != -1) {
-        for (j = point_index + 1; binStr[j] != '\0'; j++) {
-            if (binStr[j] == '1') {
-                frac_value += factor;
-            }
-            factor /= 2;
+    if (binStr[i] == '.') {
+        i++;
+        while (binStr[i] != '\0') {
+            frac_value += (binStr[i] - '0') * factor;
+            factor /= 2; // O peso dos bits diminui cada vez mais
+            i++;
         }
     }
-    
+
+    // Soma parte inteira e fracionária e coloca o sinal 
     double total = int_value + frac_value;
     return is_negative ? -total : total;
 }
