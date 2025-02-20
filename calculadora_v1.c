@@ -164,7 +164,7 @@ void evaluate_expression() {
         case '*': result = a * b; break;
         case '/': 
             if (b == 0) { 
-                printf("Erro: Division by zero.\n"); 
+                printf("Erro: Divisao por zero.\n"); 
                 return; 
             }
             result = a / b; break;
