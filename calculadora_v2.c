@@ -7,25 +7,27 @@ double bin_to_dec(const char *binStr);
 char* dec_to_bin(double num);
 void evaluate_expression();
 void limpar_console();
+void print_banner();
 
 int main() {
     int option;
     do {
-        printf("Menu:\n");
+        print_banner(0);
         printf("1. Binario -> Decimal\n");
         printf("2. Decimal -> Binario\n");
         printf("3. Calcular expressao\n");
         printf("4. Sair\n");
         printf("Escolha uma opcao: ");
-        scanf("%d", &option);
+        scanf(" %d", &option);
         switch(option) {
             case 1: {
                 char binStr[100];
                 int valid;
+                print_banner(option);
                 do{
                     valid = 1;
                     printf("Digite um numero binario: ");
-                    scanf("%s", binStr);
+                    scanf(" %s", binStr);
                     int has_point = 0;
                     int i = 0;
                     if (binStr[0] == '-') i = 1;
@@ -50,8 +52,9 @@ int main() {
             }
             case 2: {
                 double num;
+                print_banner(option);
                 printf("Digite um numero decimal: ");
-                scanf("%lf", &num);
+                scanf(" %lf", &num);
                 char *bin = dec_to_bin(num);
                 if (bin == NULL) {
                     printf("Erro ao alocar memoria.\n");
@@ -63,6 +66,7 @@ int main() {
                 break;
             }
             case 3:
+                print_banner(option);
                 evaluate_expression();
                 limpar_console();
                 break;
@@ -185,7 +189,7 @@ void evaluate_expression() {
     
     do {        
         printf("Digite a expressao numerica:\n");
-        scanf("%lf %s %lf", &a, str, &b);
+        scanf(" %lf %s %lf", &a, str, &b);
         choice = str[0];
     } while (choice != '+' && choice != '-' && choice != '*' && choice != '/' && strcmp(str, "div") != 0 && choice != '^');
 
@@ -218,4 +222,24 @@ void limpar_console(){
     printf("Pressione Enter para continuar...\n");
     system("pause > nul");
     system("cls");
+}
+
+void print_banner(int option) {
+    system("cls");
+    printf("===============================\n");
+    switch(option){
+        case 0:
+            printf("         MENU PRINCIPAL        \n");
+            break;
+        case 1:
+            printf("   CONVERSOR BINARIO/DECIMAL   \n");
+            break;
+        case 2:
+            printf("   CONVERSOR DECIMAL/BINARIO   \n");
+            break;
+        case 3:
+            printf("   CALCULADORA DE EXPRESSOES   \n");
+            break;
+    }
+    printf("===============================\n");
 }
